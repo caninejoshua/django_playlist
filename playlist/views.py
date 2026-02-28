@@ -11,7 +11,7 @@ def is_valid_queryparam(param):
 
 def home(request):
     qs = Track.objects.all()
-    
+
     title_or_artist_query = request.GET.get('title_or_artist')
     date_min = request.GET.get("date_min")
     date_max = request.GET.get("date_max")
@@ -20,19 +20,19 @@ def home(request):
         qs = qs.filter(Q(title__icontains=title_or_artist_query)
                        | Q(artist__name__icontains=title_or_artist_query)
                        ).distinct()
-        tlabel = f"Title or artist contains: {title_or_artist_query}"
+        tlabel = title_or_artist_query
     else:
         tlabel = ""
 
     if is_valid_queryparam(date_min):
         qs =  qs.filter(played_on__gte=date_min)
-        slabel = f"From {date_min}"
+        slabel = date_min
     else:
         slabel=""
     
     if is_valid_queryparam(date_max):
         qs =  qs.filter(played_on__lte=date_max)
-        elabel = f"To {date_max}"
+        elabel = date_max
     else:
         elabel= ""
             
@@ -43,6 +43,7 @@ def home(request):
          "elabel": elabel,
          "tlabel": tlabel
          }
+
     return render(request, 'playlist/home.html', context)
 
 
