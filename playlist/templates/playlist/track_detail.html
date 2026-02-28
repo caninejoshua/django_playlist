@@ -1,0 +1,12 @@
+{% extends "playlist/base.html" %}
+{% block content %}
+<div class="content-section">
+    <h1>{{track.title}}</h1>
+    <p>{{track.artist}}</p>
+    <hr>
+    <small>{{ track.played_on|date:"d F Y" }} {{ track.played_at|date:"H:i" }}</small>
+    <div class="btn-group">
+        <a href="{% url 'playlist:home'%}" class="btn btn-sm btn-outline-secondary ms-2">Return</a>
+    </div>
+</div>
+{% endblock %}

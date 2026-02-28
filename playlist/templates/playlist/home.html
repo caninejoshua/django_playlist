@@ -1,0 +1,65 @@
+{% extends "playlist/base.html" %}
+{% block content %}
+<div class="row mb-4">
+    <div class="col">
+        <h1 class="display-4">9 til 12 Playlist</h1>
+    </div>
+
+    <h2>Filter Playlist</h2>
+    <div class="row">
+        <form method="GET" action=".">
+
+            <div class="row">
+                <div class="col-md-4 col-lg-4 mt-2 mb-4">
+                    <label for="TextSearch"><span class="filter-value">{{ tlabel }}</span></label>
+                    <input class="form-control py-2" type="search" id= "TextSearch" name="title_or_artist" placeholder="Title or artist..." />
+                    <!--
+                        class 
+                        border-right-0 border 
+                         
+                    --> 
+                </div>        
+            </div>
+
+
+            <div class="row">
+
+                <div class="col-md-2 col-lg-2">
+                    <label for="playedOnMin"><span class="filter-value">{{ slabel }}</span></label>
+                    <input type="date" class="form-control" id="playedOnMin" name="date_min">
+                </div>
+
+                <div class="col-md-2 col-lg-2">
+                    <label for="playedOnMax"><span class="filter-value">{{ elabel }}</span></label>
+                    <input type="date" class="form-control" id="playedOnMax" name="date_max">
+                </div>
+
+                <div class="col-md-2 col-lg-2 mt-4">
+                    <button type="submit" class="btn btn-primary">Search</button>
+                </div>
+            </div>
+        </form>
+    </div>
+
+</div>
+
+<div class="row image-gallery">
+    {% for track in queryset %}
+        <div class="col col-md-2 col-lg-2">
+            <img class="banner" src="{{ track.artist.banner.url }}"alt = "{{ track.artist }}"/>
+            <h2>
+                <a href="{% url 'playlist:track-detail' track.pk %}" class="text-decoration-none">
+                    {{ track.title }}
+                </a>
+            </h2>
+            <p>
+                {{ track.artist }}<br/>
+                <small>{{ track.played_on|date:"d F Y" }} {{ track.played_at|date:"H:i" }}</small>
+            </p>
+        </div>            
+    {% empty %}
+        <h2>No tracks found!</h2>
+    {% endfor %}
+</div>
+
+{% endblock %}

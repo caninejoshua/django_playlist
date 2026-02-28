@@ -1,0 +1,61 @@
+{% extends "playlist/base.html" %}
+{% block content %}
+<div class="row mb-4">
+    <div class="col">
+        <h1 class="display-4">9 til 12 Playlist</h1>
+    </div>
+
+    <p>Date range</p>
+    <div class="row">
+        <form method="GET" action=".">
+            <div class="row">
+
+                <div class="col-md-2 col-lg-2">
+                    <label for="playedOnMin">{{ slabel }}</label>
+                    <input type="date" class="form-control" id="playedOnMin" name="date_min">
+                </div>
+
+                <div class="col-md-2 col-lg-2">
+                    <label for="playedOnMax">{{ elabel }}</label>
+                    <input type="date" class="form-control" id="playedOnMax" name="date_max">
+                </div>
+
+                <div class="col-md-2 col-lg-2 mt-4">
+                    <button type="submit" class="btn btn-primary">Search</button>
+                </div>
+            </div>
+        </form>
+    </div>
+
+</div>
+<div class="row">
+    {% for track in queryset %}
+    <div class="row content-section mb-4">
+
+        <div class="col-md-2">
+            <img 
+                class="banner"
+                src="{{ track.artist.banner.url }}"
+                alt = "{{ track.artist }}"
+            /> 
+        </div>
+
+        <div class="col-md-4">
+            <h2>
+                <a href="{% url 'playlist:track-detail' track.pk %}" class="text-decoration-none">{{ track.title }}</a>
+            </h2>
+            <h4>{{ track.artist }}</h4>
+            
+            <p>{{ track.played_on|date:"d F Y" }} {{ track.played_at|date:"H:i" }}<p>
+        
+        </div>
+    </div>
+    {% empty %}
+        <h2>No tracks found!</h2>
+    {% endfor %}
+</div>
+
+
+
+{% endblock %}
+/

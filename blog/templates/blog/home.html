@@ -1,0 +1,42 @@
+{% extends "blog/base.html" %}
+{% block content %}
+<div class="row mb-4">
+    <div class="col">
+        <h1 class="display-4">9 til 12 Playlist</h1>
+    </div>
+    <div class="col text-end">
+        <a href="{% url 'blog:post-create' %}" class="btn btn-primary">Create New Post</a>
+    </div>
+</div>
+<div class="row">
+    {% for post in posts %}
+    <div class="row content-section mb-4">
+
+        <div class="col-md-2">
+            <img 
+                class="banner"
+                src="{{ post.banner.url }}"
+                alt = "{{ post.artist }}"
+            /> 
+        </div>
+
+        <div class="col-md-4">
+            <h2>
+                <a href="{% url 'blog:post-detail' post.pk %}" class="text-decoration-none">{{ post.title }}</a>
+            </h2>
+            <h4>{{ post.artist }}</h4>
+            
+            <p>{{ post.created_by }}<p>
+            <div class="btn-group">
+                <a href="{% url 'blog:post-update' post.pk%}" class="btn btn-sm btn-outline-secondary">Update</a>
+                <a href="{% url 'blog:post-delete' post.pk%}" class="btn btn-sm btn-outline-danger ms-2">Delete</a>
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+
+
+
+{% endblock %}
+/

@@ -1,0 +1,19 @@
+{% extends "blog/base.html" %}
+{% block content %}
+<div class="content-section">
+    <h1 class="mb-4">Edit Post</h1>
+    <form method="post">
+        {% csrf_token %}
+        {% for field in  form %}
+        <div class="mb-3">
+            <label for="{{field.id_for_label}}">{{field.label}}</label>
+            <input type="{{field.field.widget.input_type}}" name="{{field.name}}" value="{{field.value}}">
+        </div>
+        {% endfor %}
+        <div>
+            <button type="submit" class="btn btn-secondary">Save Post</button>
+            <a href="{% url 'blog:home' %}" class="btn btn-secondary">Cancel</a>
+        </div>
+    </form>
+</div>
+{% endblock %}
