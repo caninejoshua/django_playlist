@@ -10,7 +10,7 @@ def is_valid_queryparam(param):
 
 
 def home(request):
-    qs = Track.objects.all()
+    qs = Track.objects.all().order_by("played_on", "-played_at")
 
     title_or_artist_query = request.GET.get('title_or_artist')
     date_min = request.GET.get("date_min")

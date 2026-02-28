@@ -3,9 +3,13 @@ from django.urls import reverse
 
 
 class Artist(models.Model):
-    name = models.CharField(max_length=200, unique=True)
+    name = models.CharField('name', max_length=200, unique=True)
     banner =models.ImageField(default="fallback.png", blank=True)
+    my_order = models.PositiveIntegerField(default=0,blank=False,null=False)
 
+    class Meta:
+        ordering = ['my_order']
+        
     def __str__(self):
         return self.name
 
