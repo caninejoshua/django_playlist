@@ -3,6 +3,7 @@ from django.shortcuts import render, get_object_or_404
 from .models import Track
 from django.views.generic import CreateView, UpdateView, DeleteView
 from django.urls import reverse_lazy
+from django.core.paginator import Paginator
 
 
 def is_valid_queryparam(param):
@@ -11,6 +12,8 @@ def is_valid_queryparam(param):
 
 def home(request):
     qs = Track.objects.all().order_by("played_on", "-played_at")
+
+    
 
     title_or_artist_query = request.GET.get('title_or_artist')
     date_min = request.GET.get("date_min")
@@ -35,7 +38,11 @@ def home(request):
         elabel = date_max
     else:
         elabel= ""
-            
+
+# Pagination
+    p = Paginator(qs,6)
+    page = request.GET.get("page")
+    qs = p.get_page(page)            
 
     context = {
          "queryset": qs,
