@@ -46,6 +46,20 @@ body {
     font-weight: bold;
 }
 
+.paginator {
+    padding-top: 20px;
+}
+
+.banner-detail {
+
+    width: 100%;
+    border-radius: 8px;
+    margin-bottom: 15px;
+    max-width: 200px;
+    max-height: 200px;
+     
+}
+
 
 /*
 cuttings

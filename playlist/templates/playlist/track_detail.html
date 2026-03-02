@@ -1,7 +1,8 @@
 {% extends "playlist/base.html" %}
 {% block content %}
 <div class="content-section">
-    <h1>{{track.title}}</h1>
+    <p>{{track.title}}</p>
+    <img class="banner-detail" src="{{ track.artist.banner.url }}"alt = "{{ track.artist }}"/>
     <p>{{track.artist}}</p>
     <hr>
     <small>{{ track.played_on|date:"d F Y" }} {{ track.played_at|date:"H:i" }}</small>

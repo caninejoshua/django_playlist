@@ -5,19 +5,29 @@
         <h1 class="display-4">9 til 12 Playlist</h1>
     </div>
 
-    <p>Date range</p>
+    <h2>Filter Playlist</h2>
+    
     <div class="row">
-        <form method="GET" action=".">
+        <form method="GET">
+
+            <div class="row">
+                <div class="col-md-4 col-lg-4 mt-2 mb-4">
+                    <label for="TextSearch">Title or Artist</label>
+                    <input class="form-control py-2" type="search" id= "TextSearch" name="title_or_artist" placeholder="Title or artist..." value="{{ tlabel }}" />
+                </div>        
+            </div>
+
+
             <div class="row">
 
                 <div class="col-md-2 col-lg-2">
-                    <label for="playedOnMin">{{ slabel }}</label>
-                    <input type="date" class="form-control" id="playedOnMin" name="date_min">
+                    <label for="playedOnMin">Start date</label>
+                    <input type="date" class="form-control" id="playedOnMin" name="date_min" value="{{ slabel }}">
                 </div>
 
                 <div class="col-md-2 col-lg-2">
-                    <label for="playedOnMax">{{ elabel }}</label>
-                    <input type="date" class="form-control" id="playedOnMax" name="date_max">
+                    <label for="playedOnMax">End Date</label>
+                    <input type="date" class="form-control" id="playedOnMax" name="date_max" value="{{ elabel }}">
                 </div>
 
                 <div class="col-md-2 col-lg-2 mt-4">
@@ -25,37 +35,61 @@
                 </div>
             </div>
         </form>
-    </div>
+    </div>    
+    
 
 </div>
-<div class="row">
+
+<hr>
+<span>
+
+    {% if queryset.has_previous %}
+        <a href="?title_or_artist={{ tlabel }}&date_min={{ slabel }}&date_max={{ elabel }}&page=1">&laquo First</a> 
+        <a href="?title_or_artist={{ tlabel }}&date_min={{ slabel }}&date_max={{ elabel }}&page={{ queryset.previous_page_number }}">Previous</a>
+    {% endif %}
+
+    Page {{ queryset.number }} of {{ queryset.paginator.num_pages }}
+
+{% if queryset.has_next %}
+        <a href="?title_or_artist={{ tlabel }}&date_min={{ slabel }}&date_max={{ elabel }}&page={{ queryset.next_page_number }}">Next</a> 
+        <a href="?title_or_artist={{ tlabel }}&date_min={{ slabel }}&date_max={{ elabel }}&page={{ queryset.paginator.num_pages}}">Last &raquo</a>
+    {% endif %}
+
+</span>
+
+
+
+<div class="row image-gallery">
     {% for track in queryset %}
-    <div class="row content-section mb-4">
-
-        <div class="col-md-2">
-            <img 
-                class="banner"
-                src="{{ track.artist.banner.url }}"
-                alt = "{{ track.artist }}"
-            /> 
-        </div>
-
-        <div class="col-md-4">
+        <div class="col col-md-2 col-lg-2">
+            <img class="banner" src="{{ track.artist.banner.url }}"alt = "{{ track.artist }}"/>
             <h2>
-                <a href="{% url 'playlist:track-detail' track.pk %}" class="text-decoration-none">{{ track.title }}</a>
+                <a href="{% url 'playlist:track-detail' track.pk %}" class="text-decoration-none">
+                    {{ track.title }}
+                </a>
             </h2>
-            <h4>{{ track.artist }}</h4>
-            
-            <p>{{ track.played_on|date:"d F Y" }} {{ track.played_at|date:"H:i" }}<p>
-        
-        </div>
-    </div>
+            <p>
+                {{ track.artist }}<br/>
+                <small>{{ track.played_on|date:"d F Y" }} {{ track.played_at|date:"H:i" }}</small>
+            </p>
+        </div>            
     {% empty %}
         <h2>No tracks found!</h2>
     {% endfor %}
 </div>
 
 
+    <!--
+    {{ queryset }} <br>
+    Has previous: {{ queryset.has_previous }} <br>
+    Has next: {{ queryset.has_next }} <br>
+    Current page: {{ queryset.number }} <br>
+    Number of pages: {{ queryset.paginator.num_pages }} <br>
+    <br><br>
+    -->
+    
+
+
+
 
 {% endblock %}
-/
