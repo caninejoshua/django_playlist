@@ -40,7 +40,7 @@ def home(request):
         elabel= ""
 
 # Pagination
-    p = Paginator(qs,30)
+    p = Paginator(qs,12)
     page = request.GET.get("page")
     qs = p.get_page(page)            
 
