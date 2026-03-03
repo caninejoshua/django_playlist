@@ -1,0 +1,82 @@
+body {
+            background-color: rgb(255, 255, 255);
+            font-family: Verdana, Geneva, Tahoma, sans-serif;
+        
+        }
+        
+.content-section {
+    background: white;
+    padding: 20px;
+    border-radius: 15px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    margin-bottom: 20px;
+}
+
+
+
+
+.image-gallery {
+    margin-top: 25px;
+}
+
+.image-gallery .col {
+    
+    border-radius: 8px;
+    background-color: rgb(244, 243, 245);
+
+}
+
+
+.banner {
+
+    width: 100%;
+    border-radius: 8px;
+    margin-bottom: 15px;
+     
+}
+
+
+
+.image-gallery h2 {
+    font-size: 1rem;
+}
+
+.filter-value {
+    color: blueviolet;
+    font-weight: bold;
+}
+
+.paginator {
+    padding-top: 20px;
+}
+
+.banner-detail {
+
+    width: 100%;
+    border-radius: 8px;
+    margin-bottom: 15px;
+    max-width: 200px;
+    max-height: 200px;
+     
+}
+
+
+/*
+cuttings
+    
+    padding-top: 20px;
+    padding-bottom: 20px;
+
+    display: block;
+    background-color: antiquewhite;
+    overflow: hidden;
+    text-align: left;
+    position: relative; 
+    max-width: 200px;
+    max-height: 200px;
+    
+
+
+    
+}
+*/
