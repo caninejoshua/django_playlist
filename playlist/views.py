@@ -22,6 +22,7 @@ def home(request):
     if is_valid_queryparam(title_or_artist_query):
         qs = qs.filter(Q(title__icontains=title_or_artist_query)
                        | Q(artist__name__icontains=title_or_artist_query)
+                       | Q(artist__aka__iexact=title_or_artist_query)
                        ).distinct()
         tlabel = title_or_artist_query
     else:
@@ -57,7 +58,13 @@ def home(request):
 # View Details
 def track_details(request, pk):
     track = get_object_or_404(Track, pk=pk)
-    return render(request, 'playlist/track_detail.html', {"track": track})
+    history = Track.objects.values('title', 'artist__name', 'played_on', 'played_at').filter(title=track.title, artist__name=track.artist.name).order_by('-played_on')
+
+    context = {"track": track, 
+               "history": history,
+               "play_total": len(history)
+        }
+    return render(request, 'playlist/track_detail.html', context)
 
 
 

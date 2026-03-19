@@ -5,7 +5,15 @@
     <img class="banner-detail" src="{{ track.artist.banner.url }}"alt = "{{ track.artist }}"/>
     <p>{{track.artist}}</p>
     <hr>
-    <small>{{ track.played_on|date:"d F Y" }} {{ track.played_at|date:"H:i" }}</small>
+    <p>Playlist history : track has been played {{ play_total }} times</p>
+
+    <ul>
+    {% for item in history %}
+    <li><small>{{ item.played_on|date:"d F Y" }} {{ item.played_at|date:"H:i" }}</small></li>
+
+    {% endfor %}
+    </ul>
+
     <div class="btn-group">
         <a href="{% url 'playlist:home'%}" class="btn btn-sm btn-outline-secondary ms-2">Return</a>
     </div>
